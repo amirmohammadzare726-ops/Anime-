@@ -68,6 +68,7 @@ function showWorld(data){
  const lines={threshold:"دروازه در برابر تو می‌درخشد. هر انتخاب، مسیر تازه‌ای را در تاریکی باز می‌کند.",city:"فانوس‌های خاموش در باد می‌لرزند؛ کسی نام تو را می‌داند.",forest:"در جنگل ممنوعه، شاخه‌ها آرام کنار می‌روند و ردّی بنفش نمایان می‌شود.",ruins:"زیر غبار ویرانه‌ها، سنگی با نام قدرت تو می‌درخشد."};
  $("lore").textContent=lines[place]||lines.threshold;
  $("savedState").textContent="✓";
+ if(data.power_data && data.power_data.subpowers) { renderPower(data.power_data); setStatus("powerStatus","موهبت ثبت‌شده از حساب بازیابی شد."); } else { $("powerResult").classList.add("hidden"); $("powerResult").innerHTML=""; $("awakenBtn").textContent="آشکار کردن قدرت من"; }
 }
 async function loadProfile(user){
  const {data,error}=await db.from("player_profiles").select("*").eq("id",user.id).single();
@@ -94,31 +95,36 @@ $("authForm").addEventListener("submit",async e=>{
  }catch(err){setStatus("authStatus","خطا: "+(err.message||"اتصال انجام نشد.")+" — تنظیمات Supabase و اجرای schema.sql را بررسی کن.");}
  finally{$("submitBtn").disabled=false;$("submitBtn").textContent=mode==="signup"?"ساخت حساب و ورود به جهان":"ورود به جهان";}
 });
-const GAME_API = SUPABASE_URL + "/functions/v1/eternum-api";
+function renderPower(power) {
+ if (!power || !Array.isArray(power.subpowers)) return;
+ $("powerResult").classList.remove("hidden");
+ $("powerResult").innerHTML = '<h3>' + escapeText(power.name || "موهبتِ آستانه") + '</h3><p class="hint">' + escapeText(power.description || "") + '</p><div class="power-list">' + power.subpowers.map(item => '<div class="power-item"><b>' + escapeText(item.slot) + '. ' + escapeText(item.name) + '</b><small>' + escapeText(item.ability) + '</small></div>').join("") + '</div><p class="hint">این موهبت در حساب تو ثبت شده و با ورود دوباره حفظ می‌شود.</p>';
+ $("awakenBtn").textContent = "نمایش موهبت ثبت‌شده";
+}
 $("awakenBtn").addEventListener("click", async () => {
  if (!db || !profile) { setStatus("powerStatus", "ابتدا وارد حساب خودت شو."); return; }
- const { data: { session } } = await db.auth.getSession();
- if (!session) { setStatus("powerStatus", "نشست ورود پیدا نشد؛ دوباره وارد شو."); return; }
+ if (profile.power_data && profile.power_data.subpowers) {
+  renderPower(profile.power_data);
+  setStatus("powerStatus", "موهبت دائمی شخصیتت بازیابی شد.");
+  return;
+ }
  $("awakenBtn").disabled = true;
- $("awakenBtn").textContent = "در حال گشودن آستانه…";
- setStatus("powerStatus", "در حال دریافت پیش‌نمایش از سرور بازی…");
+ $("awakenBtn").textContent = "در حال ثبت موهبت…";
+ setStatus("powerStatus", "در حال بیداری و ثبت دائمی قدرت در حساب…");
  try {
-  const response = await fetch(GAME_API + "/api/power/generate", {
-   method: "POST",
-   headers: { "content-type": "application/json", "authorization": "Bearer " + session.access_token },
-   body: JSON.stringify({ characterName: profile.character_name })
-  });
-  const result = await response.json();
-  if (!response.ok || !result.ok) throw new Error(result.error || "پاسخ سرور نامعتبر است");
-  const power = result.power;
-  $("powerResult").classList.remove("hidden");
-  $("powerResult").innerHTML = '<h3>' + escapeText(power.name) + '</h3><p class="hint">' + escapeText(power.description) + '</p><div class="power-list">' + power.subpowers.map(item => '<div class="power-item"><b>' + item.slot + '. ' + escapeText(item.name) + '</b><small>' + escapeText(item.ability) + '</small></div>').join("") + '</div><p class="hint">' + escapeText(power.warning || "این پیش‌نمایش هنوز ذخیره نشده است.") + '</p>';
-  setStatus("powerStatus", "پیش‌نمایش قدرت از سرور دریافت شد.");
+  const { data, error } = await db.rpc("awaken_eternum_power");
+  if (error) throw error;
+  if (!data || !Array.isArray(data.subpowers)) throw new Error("ساختار پاسخ سرور معتبر نیست.");
+  profile.power_data = data;
+  profile.power_level = data.mastery || 1;
+  $("powerLevel").textContent = profile.power_level;
+  renderPower(data);
+  setStatus("powerStatus", "موهبت برای همیشه در پروفایلت ذخیره شد.");
  } catch (error) {
-  setStatus("powerStatus", "فعلاً دریافت قدرت ناموفق بود: " + (error.message || "خطای ارتباط"));
+  setStatus("powerStatus", "ثبت قدرت انجام نشد: " + (error.message || "خطای ارتباط"));
+  $("awakenBtn").textContent = "تلاش دوباره برای بیداری";
  } finally {
   $("awakenBtn").disabled = false;
-  $("awakenBtn").textContent = "دوباره آشکار کردن قدرت";
  }
 });
 function escapeText(value) {
