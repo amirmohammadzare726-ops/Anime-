@@ -87,3 +87,13 @@ Earlier work connected Supabase project ccnovtgefjoemxoangix (URL https://ccnovt
 - Routes implemented: GET `/health`, GET `/api/health`, GET `/api/world`, POST `/api/power/generate`, GET `/api/rooms`; CORS OPTIONS supported.
 - Important limitation: live health endpoint could not be verified through the web inspection tool, so treat deployment as accepted by Supabase but not yet independently smoke-tested. The frontend currently does not call this API; signup/profile persistence still talks directly to Supabase Auth and `player_profiles`. This API is a first backend foundation, not full multiplayer/authenticated game server.
 - Next technical step: test the health endpoint via a direct HTTP-capable connector if available, then wire the frontend to this API only where appropriate. Do not ask user to configure anything manually.
+
+
+## Update at 2026-10-16 20:20 UTC — API source tracked and power preview connected
+- Confirmed Supabase database table `public.player_profiles` contains: id, username, character_name, character_level, power_level, power_data, world_state, intro_completed, created_at, updated_at. RLS is enabled. Authenticated users have select and restricted update rights only for world_state and intro_completed; progression/power fields are intentionally not client-writable.
+- Added the deployed Edge Function source to GitHub at `server/supabase/functions/eternum-api/index.ts` (commit c4237e9279706633985c735f0d6bb4d86ad9958b).
+- Added `server/supabase/README.md` documenting routes and known limitations (commit f838794c94a6599405fd95cc990435a3a053545b).
+- Updated `index.html` (commit 44486004667fb9fc3ea3b153643e442a803e3e4a) with a mobile-first “بیداری موهبت” section. After login, the player can request a power preview from the Supabase Edge Function; the UI renders all 10 subpowers and safely escapes text before inserting it into the page.
+- The UI now calls `https://ccnovtgefjoemxoangix.supabase.co/functions/v1/eternum-api/api/power/generate`. The function currently does not validate the bearer token and does not persist the generated power; this remains explicitly a preview. Do not describe it as permanently assigned/locked yet.
+- Verified through GitHub connector that the updated index file and new backend source/docs exist on the default branch. A live browser run, Pages deployment status, direct HTTP endpoint smoke test, and end-to-end auth test are still unverified.
+- Next: inspect GitHub Pages deployment status and, if possible, test API reachability. Then implement secure server-side power assignment persistence (using trusted server credentials only if available; never expose service-role secrets) and address username-only signup/email-confirmation configuration. No user manual action requested.
