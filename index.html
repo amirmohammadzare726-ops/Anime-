@@ -24,7 +24,7 @@
 <button class="btn primary" id="submitBtn" type="submit">ساخت حساب و ورود به جهان</button>
 </form>
 <div class="status" id="authStatus" role="status" aria-live="polite"></div>
-<div class="notice">این نسخهٔ آغازین است. تا وقتی آدرس و کلید عمومی پروژهٔ مستقل Supabase تنظیم نشود، حساب آنلاین فعال نیست.</div>
+<div class="notice">اتصال عمومی Supabase تنظیم شده است. برای ثبت‌نام بدون ایمیل، تأیید ایمیل را در تنظیمات Auth خاموش کن و schema.sql را اجرا کن.</div>
 </section>
 <section class="panel hidden" id="worldPanel">
 <h2 id="welcome">به جهان خوش آمدی</h2><p class="hint">پیشرفتت از حساب آنلاین خوانده می‌شود.</p>
@@ -43,8 +43,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 /* Public browser settings only. Never place a Supabase service_role/secret key here. */
-const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY";
+const SUPABASE_URL = "https://ccnovtgefjoemxoangix.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_xl291njkrY9WhLeg4dqj_A_a6wvqDb9";
 const configured = /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(SUPABASE_URL) && !SUPABASE_URL.includes("YOUR_") && !SUPABASE_ANON_KEY.includes("YOUR_");
 const db = configured && window.supabase ? window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY) : null;
 let mode = "signup", profile = null;
@@ -74,7 +74,7 @@ async function loadProfile(user){
 }
 $("authForm").addEventListener("submit",async e=>{
  e.preventDefault(); setStatus("authStatus","");
- if(!db){setStatus("authStatus","اتصال سرور هنوز تنظیم نشده. ابتدا یک پروژهٔ Supabase جدا بساز و مقادیر تنظیمات را در index.html وارد کن.");return;}
+ if(!db){setStatus("authStatus","اتصال سرور تنظیم نشده است؛ بارگذاری کتابخانهٔ Supabase یا تنظیمات را بررسی کن.");return;}
  const username=$("username").value.trim().toLowerCase(), password=$("password").value;
  if(!/^[a-z0-9_]{3,20}$/.test(username)){setStatus("authStatus","نام کاربری باید ۳ تا ۲۰ حرف انگلیسی، عدد یا زیرخط باشد.");return;}
  if(password.length<8){setStatus("authStatus","رمز عبور باید حداقل ۸ نویسه باشد.");return;}
