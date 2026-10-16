@@ -78,3 +78,12 @@ Earlier work connected Supabase project ccnovtgefjoemxoangix (URL https://ccnovt
 - User is eager to build the full game; be proactive but honest about what is actually implemented and deployed.
 - Preserve existing repository and richer design. Never delete unrelated databases/resources.
 - When a step depends on the user's phone UI, give one clear action and ask for screenshot of the next screen.
+
+## Update at 2026-10-16 19:56 UTC — alternate backend deployed
+- Cloudflare direct deployment was retried 3 times for `eternum-game-api`; all returned `No access to the specified resource`. Read-only API works. Existing Worker `anime` is still a dashboard Hello World and was NOT modified.
+- To avoid requiring more manual work from the user, deployed a Supabase Edge Function named `eternum-api` to the active project `ccnovtgefjoemxoangix`.
+- Function deployment response: ACTIVE, version 1, verify_jwt=false, slug `eternum-api`.
+- Intended endpoint base: `https://ccnovtgefjoemxoangix.supabase.co/functions/v1/eternum-api`
+- Routes implemented: GET `/health`, GET `/api/health`, GET `/api/world`, POST `/api/power/generate`, GET `/api/rooms`; CORS OPTIONS supported.
+- Important limitation: live health endpoint could not be verified through the web inspection tool, so treat deployment as accepted by Supabase but not yet independently smoke-tested. The frontend currently does not call this API; signup/profile persistence still talks directly to Supabase Auth and `player_profiles`. This API is a first backend foundation, not full multiplayer/authenticated game server.
+- Next technical step: test the health endpoint via a direct HTTP-capable connector if available, then wire the frontend to this API only where appropriate. Do not ask user to configure anything manually.
