@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090814"><meta name="description" content="ETERNUM — جهان سرنوشت‌های نانوشته">
+<title>ETERNUM | جهان سرنوشت‌های نانوشته</title>
+<style>
+:root{color-scheme:dark;--bg:#090814;--panel:#141326;--line:#393252;--gold:#e5bd72;--violet:#a78bfa;--muted:#b9b3cf;--white:#f7f3ff}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -10%,#392052 0,transparent 48%),radial-gradient(ellipse at 100% 70%,#18284a 0,transparent 35%),var(--bg);color:var(--white);font-family:Tahoma,"Noto Sans Arabic",sans-serif}button,input{font:inherit}button{cursor:pointer}.wrap{width:min(100% - 28px,920px);margin:auto;padding:22px 0 40px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 2px 20px}.brand{letter-spacing:.2em;color:var(--gold);font:800 22px Georgia,serif}.tag{color:var(--muted);font-size:12px}.hero{text-align:center;padding:30px 12px 26px}.sigil{width:92px;height:92px;border:1px solid #a78bfa88;border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;box-shadow:0 0 45px #8b5cf633,inset 0 0 25px #8b5cf622;font-size:40px;color:var(--gold)}h1{font:700 clamp(29px,7vw,49px) Georgia,serif;letter-spacing:.08em;margin:0 0 12px}h1 span{color:var(--gold)}.subtitle{color:var(--muted);font-size:14px;line-height:1.9;margin:auto;max-width:550px}.grid{display:grid;grid-template-columns:1fr;gap:16px}.panel{background:linear-gradient(150deg,#19172cF2,#0e0d1bf5);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 18px 50px #0005}.panel h2{font-size:18px;margin:0 0 8px}.hint{font-size:12px;color:var(--muted);line-height:1.8;margin:0 0 16px}.tabs{display:flex;gap:8px;margin-bottom:18px}.tab,.btn{border:1px solid var(--line);border-radius:10px;padding:11px 14px;background:#211d36;color:var(--white)}.tab{flex:1}.tab.active,.btn.primary{background:linear-gradient(110deg,#7250b9,#9b6dbe);border-color:#b49af0;color:white}.field{display:block;margin:13px 0}.field span{display:block;font-size:12px;color:#d8d0ec;margin-bottom:7px}.field input{width:100%;border:1px solid #403957;background:#0a0914;border-radius:10px;padding:13px;color:white;outline:none}.field input:focus{border-color:var(--violet);box-shadow:0 0 0 3px #a78bfa20}.btn{width:100%;margin-top:8px;font-weight:bold}.btn:disabled{opacity:.5;cursor:wait}.status{min-height:24px;font-size:12px;line-height:1.8;color:var(--gold);margin-top:12px;overflow-wrap:anywhere}.hidden{display:none!important}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0}.stat{background:#0b0a16;border:1px solid #302945;border-radius:12px;padding:12px 8px;text-align:center}.stat strong{display:block;color:var(--gold);font-size:20px}.stat small{display:block;color:var(--muted);font-size:11px;margin-top:5px}.lore{border-right:2px solid var(--gold);padding:5px 13px;line-height:2;color:#ded7ee}.choices{display:grid;gap:9px;margin-top:18px}.choice{padding:14px;border:1px solid var(--line);border-radius:12px;background:#19152a;color:var(--white);text-align:right}.choice b{display:block;color:var(--gold);margin-bottom:4px}.choice small{color:var(--muted);line-height:1.8}.foot{text-align:center;color:#817a9c;font-size:11px;margin-top:22px;line-height:1.8}.notice{border:1px solid #8a6e3f;background:#4c371d33;padding:11px 13px;border-radius:10px;color:#e8c98d;font-size:12px;line-height:1.8;margin:12px 0}
+@media(min-width:760px){.grid{grid-template-columns:1fr 1fr}.hero{padding:42px 12px 35px}.panel{padding:24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><div class="brand">ETERNUM</div><div class="tag">جهانِ سرنوشت‌های نانوشته</div></header>
+<section class="hero"><div class="sigil" aria-hidden="true">✦</div><h1><span>ETERNUM</span></h1><p class="subtitle">پیش از آن‌که سرنوشت نوشته شود، یک انتخاب کافی‌ست.<br>از آستانه عبور کن؛ افسانه‌ات را خودت بساز.</p></section>
+<div class="grid">
+<section class="panel" id="authPanel">
+<div class="tabs"><button class="tab active" id="signupTab" type="button">ساخت شخصیت</button><button class="tab" id="loginTab" type="button">ورود</button></div>
+<form id="authForm">
+<label class="field" id="characterField"><span>نام شخصیت</span><input id="characterName" maxlength="32" autocomplete="nickname" placeholder="مثلاً آریا"></label>
+<label class="field"><span>نام کاربری (۳ تا ۲۰ حرف انگلیسی، عدد یا _)</span><input id="username" required minlength="3" maxlength="20" pattern="[A-Za-z0-9_]{3,20}" autocomplete="username" placeholder="نام_کاربری"></label>
+<label class="field"><span>رمز عبور (حداقل ۸ نویسه)</span><input id="password" required type="password" minlength="8" autocomplete="current-password" placeholder="رمز عبور امن"></label>
+<button class="btn primary" id="submitBtn" type="submit">ساخت حساب و ورود به جهان</button>
+</form>
+<div class="status" id="authStatus" role="status" aria-live="polite"></div>
+<div class="notice">این نسخهٔ آغازین است. تا وقتی آدرس و کلید عمومی پروژهٔ مستقل Supabase تنظیم نشود، حساب آنلاین فعال نیست.</div>
+</section>
+<section class="panel hidden" id="worldPanel">
+<h2 id="welcome">به جهان خوش آمدی</h2><p class="hint">پیشرفتت از حساب آنلاین خوانده می‌شود.</p>
+<div class="stats"><div class="stat"><strong id="charLevel">1</strong><small>سطح شخصیت</small></div><div class="stat"><strong id="powerLevel">1</strong><small>تسلط قدرت</small></div><div class="stat"><strong id="savedState">✓</strong><small>وضعیت حساب</small></div></div>
+<div class="lore" id="lore">دروازه در برابر تو می‌درخشد. هر انتخاب، مسیر تازه‌ای را در تاریکی باز می‌کند.</div>
+<div class="choices">
+<button class="choice" data-place="city"><b>شهرِ فانوس‌های خاموش</b><small>در میان کوچه‌های اسرارآمیز، نخستین نشانه را پیدا کن.</small></button>
+<button class="choice" data-place="forest"><b>جنگلِ ممنوعه</b><small>صدایی باستانی از میان درختان تو را فرا می‌خواند.</small></button>
+<button class="choice" data-place="ruins"><b>ویرانه‌های فراموش‌شده</b><small>سنگ‌نوشته‌ای از قدرتی ناشناخته خبر می‌دهد.</small></button>
+</div>
+<button class="btn" id="logoutBtn" type="button">خروج از حساب</button><div class="status" id="worldStatus" role="status"></div>
+</section>
+</div>
+<footer class="foot">ETERNUM · نسخهٔ پایهٔ اتصال حساب و ذخیرهٔ بازی<br>قدرت‌سازی هوش مصنوعی، جهان چندنفره و نبردهای پیشرفته هنوز در حال توسعه‌اند.</footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* Public browser settings only. Never place a Supabase service_role/secret key here. */
+const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY";
+const configured = /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(SUPABASE_URL) && !SUPABASE_URL.includes("YOUR_") && !SUPABASE_ANON_KEY.includes("YOUR_");
+const db = configured && window.supabase ? window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY) : null;
+let mode = "signup", profile = null;
+const $ = id => document.getElementById(id);
+const setStatus = (id,msg) => { $(id).textContent = msg; };
+function aliasFor(username){ return username.trim().toLowerCase()+"@accounts.eternum.invalid"; }
+function setMode(next){
+ mode=next; $("signupTab").classList.toggle("active",mode==="signup"); $("loginTab").classList.toggle("active",mode==="login");
+ $("characterField").classList.toggle("hidden",mode!=="signup");
+ $("submitBtn").textContent=mode==="signup"?"ساخت حساب و ورود به جهان":"ورود به جهان";
+ setStatus("authStatus","");
+}
+$("signupTab").addEventListener("click",()=>setMode("signup"));
+$("loginTab").addEventListener("click",()=>setMode("login"));
+function showWorld(data){
+ profile=data; $("authPanel").classList.add("hidden"); $("worldPanel").classList.remove("hidden");
+ $("welcome").textContent="خوش آمدی، "+(data.character_name||"مسافر")+"!";
+ $("charLevel").textContent=data.character_level||1; $("powerLevel").textContent=data.power_level||1;
+ const place=(data.world_state&&data.world_state.location)||"threshold";
+ const lines={threshold:"دروازه در برابر تو می‌درخشد. هر انتخاب، مسیر تازه‌ای را در تاریکی باز می‌کند.",city:"فانوس‌های خاموش در باد می‌لرزند؛ کسی نام تو را می‌داند.",forest:"در جنگل ممنوعه، شاخه‌ها آرام کنار می‌روند و ردّی بنفش نمایان می‌شود.",ruins:"زیر غبار ویرانه‌ها، سنگی با نام قدرت تو می‌درخشد."};
+ $("lore").textContent=lines[place]||lines.threshold;
+ $("savedState").textContent="✓";
+}
+async function loadProfile(user){
+ const {data,error}=await db.from("player_profiles").select("*").eq("id",user.id).single();
+ if(error) throw error; showWorld(data);
+}
+$("authForm").addEventListener("submit",async e=>{
+ e.preventDefault(); setStatus("authStatus","");
+ if(!db){setStatus("authStatus","اتصال سرور هنوز تنظیم نشده. ابتدا یک پروژهٔ Supabase جدا بساز و مقادیر تنظیمات را در index.html وارد کن.");return;}
+ const username=$("username").value.trim().toLowerCase(), password=$("password").value;
+ if(!/^[a-z0-9_]{3,20}$/.test(username)){setStatus("authStatus","نام کاربری باید ۳ تا ۲۰ حرف انگلیسی، عدد یا زیرخط باشد.");return;}
+ if(password.length<8){setStatus("authStatus","رمز عبور باید حداقل ۸ نویسه باشد.");return;}
+ $("submitBtn").disabled=true; $("submitBtn").textContent="در حال اتصال…";
+ try{
+  if(mode==="signup"){
+   const characterName=$("characterName").value.trim()||"مسافر بی‌نام";
+   const {data,error}=await db.auth.signUp({email:aliasFor(username),password,options:{data:{username,character_name:characterName}}});
+   if(error) throw error;
+   if(!data.session){setStatus("authStatus","حساب ثبت شد؛ اگر تأیید ایمیل در تنظیمات فعال باشد، ورود تا غیرفعال‌کردن آن انجام نمی‌شود. برای این نسخه، تأیید ایمیل را خاموش کن.");return;}
+   await loadProfile(data.user);
+  }else{
+   const {data,error}=await db.auth.signInWithPassword({email:aliasFor(username),password});
+   if(error) throw error; await loadProfile(data.user);
+  }
+ }catch(err){setStatus("authStatus","خطا: "+(err.message||"اتصال انجام نشد.")+" — تنظیمات Supabase و اجرای schema.sql را بررسی کن.");}
+ finally{$("submitBtn").disabled=false;$("submitBtn").textContent=mode==="signup"?"ساخت حساب و ورود به جهان":"ورود به جهان";}
+});
+document.querySelectorAll("[data-place]").forEach(btn=>btn.addEventListener("click",async()=>{
+ if(!profile||!db)return;
+ const location=btn.dataset.place; const next={...(profile.world_state||{}),location};
+ setStatus("worldStatus","در حال ذخیرهٔ مسیر…");
+ const {data,error}=await db.from("player_profiles").update({world_state:next,intro_completed:true}).eq("id",profile.id).select("*").single();
+ if(error){setStatus("worldStatus","ذخیره انجام نشد: "+error.message);return;}
+ showWorld(data);setStatus("worldStatus","مسیر جدید در حساب تو ذخیره شد.");
+}));
+$("logoutBtn").addEventListener("click",async()=>{if(db)await db.auth.signOut();profile=null;$("worldPanel").classList.add("hidden");$("authPanel").classList.remove("hidden");setMode("login");});
+(async()=>{
+ if(!db)return;
+ const {data:{session}}=await db.auth.getSession();
+ if(session){try{await loadProfile(session.user);}catch(e){setStatus("authStatus","حساب وارد شد، اما پروفایل پیدا نشد. schema.sql را بررسی کن.");}}
+})();
+</script>
+</body></html>
