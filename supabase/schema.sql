@@ -41,4 +41,7 @@ begin new.updated_at = now(); return new; end;
 $$;
 drop trigger if exists set_eternum_profile_updated_at on public.player_profiles;
 create trigger set_eternum_profile_updated_at before update on public.player_profiles for each row execute procedure public.set_eternum_updated_at();
-grant select, update on public.player_profiles to authenticated;
+revoke update on public.player_profiles from authenticated;
+grant select on public.player_profiles to authenticated;
+grant update (world_state, intro_completed) on public.player_profiles to authenticated;
+-- Character/power progression must be changed by trusted server-side game logic, not client requests.
