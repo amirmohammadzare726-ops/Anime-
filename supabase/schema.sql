@@ -1,4 +1,4 @@
--- ETERNUM initial schema. Run only in a NEW Supabase project dedicated to ETERNUM.
+-- ETERNUM schema. This project has been repurposed; legacy game tables were removed.
 create table if not exists public.player_profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   username text not null,
